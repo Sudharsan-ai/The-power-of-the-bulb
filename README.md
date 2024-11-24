@@ -32,7 +32,7 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
-HTML PROGRAM:
+HTML PROGRAM :
 
 ```
 <html>
@@ -114,7 +114,7 @@ HTML PROGRAM:
 </html>
 
 ```
-VEIWS.PY:-
+VEIWS.PY :
 
 ```
 from django.shortcuts import render
@@ -148,7 +148,7 @@ def power_calculate(request):
     
     return render(request, 'bulb/int.html',context)  
  ```
- URLS.PY:-
+ URLS.PY :
 
  ```
  from django.contrib import admin
