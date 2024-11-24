@@ -1,5 +1,5 @@
 # Ex.05 Design a Website for Server Side Processing
-## Date:
+## Date: 24-11-2024
 
 ## AIM:
  To design a website to calculate the power of a lamp filament in an incandescent bulb in the server side. 
@@ -32,7 +32,7 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
-HTML PROGRAMN:
+HTML PROGRAM:
 
 ```
 <html>
@@ -114,7 +114,7 @@ HTML PROGRAMN:
 </html>
 
 ```
-VEIWS.PY:
+Veiw.py:
 
 ```
 from django.shortcuts import render
@@ -148,7 +148,7 @@ def power_calculate(request):
     
     return render(request, 'bulb/int.html',context)  
  ```
- ULS.PY:
+ Urls.py:
 
  ```
  from django.contrib import admin
