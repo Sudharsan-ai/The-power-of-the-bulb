@@ -114,7 +114,7 @@ HTML PROGRAM:
 </html>
 
 ```
-Veiw.py:
+VEIWS.PY:-
 
 ```
 from django.shortcuts import render
@@ -148,7 +148,7 @@ def power_calculate(request):
     
     return render(request, 'bulb/int.html',context)  
  ```
- Urls.py:
+ URLS.PY:-
 
  ```
  from django.contrib import admin
