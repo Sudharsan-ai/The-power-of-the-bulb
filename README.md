@@ -32,14 +32,15 @@ Create a HTML file to implement form based input and output.
 Publish the website in the given URL.
 
 ## PROGRAM :
+HTML PROGRAMN:
+
 ```
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Power Calculator</title>
-    <style>
+    <style type="text/css">
         body {
             background-color: #bdd1d3;
             background-repeat: no-repeat;
@@ -55,18 +56,19 @@ Publish the website in the given URL.
         }
         .container {
             background-color: #c9c4b7;
-            border-radius: 12000px;
-            padding: 20px;
+            border-radius: 100%;
+            padding: 75px;
             box-shadow:#f71bdd;
             display:inline-block;
-            margin-top: 100px;
+            margin-top: 50px;
         }
         label {
-            font-size: 100%;
+            font-size: 150%;
             display:flow-root;
             margin: 15px 0 5px;
+            
         }
-        input[type="number"] {
+        input[type="text"] {
             width: calc(75% - 24px);
             padding: 10px;
             border-radius: 12px;
@@ -74,7 +76,7 @@ Publish the website in the given URL.
             margin-bottom: 15px;
             font-size: 1em;
         }
-        button {
+        input[type="submit"] {
             background-color: #1fe374;
             color: rgb(211, 241, 247);
             border: none;
@@ -91,44 +93,81 @@ Publish the website in the given URL.
             margin-top: 20px;
         }
     </style>
-    <script>
-        function calculate() {
-            const Intesity = parseFloat(document.getElementById('t1').value);
-            const Resistance = parseFloat(document.getElementById('t2').value);
-           
-            if (isNaN(Intesity) || isNaN(Resistance)) {
-                alert("Please enter valid numbers.");
-                return;
-            }
-
-            const Power = (Intesity * Intesity ) * Resistance;
-            document.getElementById('t3').innerText = "The power of the bulb: " + Power + " watts";
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <h1>The Power of the Bulb</h1>
-        <label for="t1">Intensity (A):</label>
-        <input type="number" id="t1" placeholder="Enter the Intensity value">
+        <form method="POST">
+            {% csrf_token %}
+        <label >Intensity (A):</label>
+        <input type="text" name="intensity" value="{{I}}">
         
-        <label for="t2">Resistance (Ohm):</label>
-        <input type="number" id="t2" placeholder="Enter the Resistance value">
-        
-        <button onclick="calculate()">Calculate</button>
-        <p id="t3"></p>
+        <label >Resistance (Ohm):</label>
+        <input type="text" name="resistance" value="{{R}}"><br><br>
+        <input type="submit" value="Calculate"><br><br>
+        <label>Power(watts):</label>
+        <input type="text" name="power" value="{{power}}">
     </div>
+</form>        
+
 </body>
 </html>
+
+```
+VEIWS.PY:
+
+```
+from django.shortcuts import render
+def power_calculate(request):
+    context = {}
+    context['power'] = ""
+    context['I'] = ""
+    context['R'] = ""  
+
+    if request.method == 'POST':
+
+        I = float(request.POST.get('intensity', '0')) 
+
+        R = float(request.POST.get('resistance', '0')) 
+        
+        power = (I*I)*R
+       
+        context['power'] = f"{ power:.2f}"
+        
+        context['I'] = I
+        
+        context['R'] = R
+        
+        print(f"POST method is used")
+        print(f"request= {request}")
+        print(f"Intensity (in A)  = {I}")
+        print(f"Resistance (in Ohm) = {R}")
+        print(f"Power (in watts)= {power}")
+       
+      
+    
+    return render(request, 'bulb/int.html',context)  
+ ```
+ ULS.PY:
+
+ ```
+ from django.contrib import admin
+from django.urls import path
+from bulb import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('powerofbulb/',views.power_calculate,name="powerofbulb"),
+    path('',views.power_calculate,name="powerofbulb")
+]
 
 ```
 
 
 ## SERVER SIDE PROCESSING:
-
+![alt text](Terminal.png)
 
 ## HOMEPAGE:
-
+![alt text](output.png)
 
 ## RESULT:
 The program for performing server side processing is completed successfully.
